@@ -196,7 +196,12 @@ public class GameSession {
     }
 
     public void logPacket(String sendOrRecv, int opcode, byte[] payload) {
-        LunarCore.getLogger().info(sendOrRecv + ": " + CmdIdUtils.getCmdIdName(opcode) + " (" + opcode + ")" + System.lineSeparator() + Utils.bytesToHex(payload));
+        //LunarCore.getLogger().info(sendOrRecv + ": " + CmdIdUtils.getCmdIdName(opcode) + " (" + opcode + ")" + System.lineSeparator() + Utils.bytesToHex(payload));
+        //add option to log packet data
+        LunarCore.getLogger().info(sendOrRecv + ": " + CmdIdUtils.getCmdIdName(opcode) + " (" + opcode + ")");
+        if (LunarCore.getConfig().getLogOptions().isShowPacketPayload) {
+            System.out.println("-> " + Utils.bytesToHex(payload));
+        }
     }
 
     public void close() {

@@ -114,6 +114,7 @@ public class Config {
         public boolean unlockAllChallenges = true;
         public int staminaRecoveryRate = 5 * 60;
         public int staminaReserveRecoveryRate = 18 * 60;
+        public boolean isInfiniteMP = false;
         public String language = "EN";
         public Set<String> defaultPermissions = Set.of("*");
         
@@ -167,6 +168,7 @@ public class Config {
         public boolean connections = true;
         public boolean packets = false;
         public boolean filterLoopingPackets = false;
+        public boolean isShowPacketPayload = false;
     }
     
     @Getter

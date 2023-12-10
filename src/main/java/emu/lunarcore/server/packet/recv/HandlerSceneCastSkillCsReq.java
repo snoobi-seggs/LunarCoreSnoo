@@ -3,6 +3,7 @@ package emu.lunarcore.server.packet.recv;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import emu.lunarcore.LunarCore;
 import emu.lunarcore.game.avatar.GameAvatar;
 import emu.lunarcore.game.battle.skills.MazeSkill;
 import emu.lunarcore.game.player.Player;
@@ -41,6 +42,13 @@ public class HandlerSceneCastSkillCsReq extends PacketHandler {
                 // Spend one skill point
                 player.getCurrentLineup().removeMp(1);
                 session.send(new PacketSceneCastSkillMpUpdateScNotify(req.getAttackedGroupId(), player.getCurrentLineup().getMp()));
+                
+                // Return one skill point if config set infinite MP
+                if (LunarCore.getConfig().getServerOptions().isInfiniteMP) {
+                    player.getCurrentLineup().addMp(1);
+                    session.send(new PacketSceneCastSkillMpUpdateScNotify(req.getAttackedGroupId(), player.getCurrentLineup().getMp()));
+                }
+                
                 // Cast skill effects
                 if (caster.getExcel().getMazeSkill() != null) {
                     skill = caster.getExcel().getMazeSkill();
