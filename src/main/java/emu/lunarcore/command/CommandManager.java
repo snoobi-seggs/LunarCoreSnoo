@@ -17,10 +17,12 @@ import lombok.Getter;
 public class CommandManager {
     private Object2ObjectMap<String, CommandHandler> labels;
     private Object2ObjectMap<String, CommandHandler> commands;
+    @Getter private static int curTargetUid;
     
     public CommandManager() {
         this.labels = new Object2ObjectOpenHashMap<>();
         this.commands = new Object2ObjectOpenHashMap<>();
+        this.curTargetUid = 0;
         
         // Scan for commands
         var commandClasses = new Reflections(CommandManager.class.getPackageName()).getTypesAnnotatedWith(Command.class);
@@ -114,6 +116,13 @@ public class CommandManager {
         
         // Get command label
         String label = args.remove(0).toLowerCase();
+        
+        // Set Console Persistant Target Uid
+        if (label.startsWith("@")) {
+            this.curTargetUid = label.substring(1).equals("") ? 0 : Integer.parseInt(label.substring(1));
+            LunarCore.getLogger().info("Target has been set to [" + this.curTargetUid + "], future commands will now target this player");
+            return;
+        }
         
         // Filter out command prefixes
         if (label.startsWith("/") || label.startsWith("!")) {

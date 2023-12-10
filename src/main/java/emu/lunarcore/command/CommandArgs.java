@@ -3,6 +3,7 @@ package emu.lunarcore.command;
 import java.util.List;
 
 import emu.lunarcore.LunarCore;
+import emu.lunarcore.command.CommandHandler;
 import emu.lunarcore.data.GameData;
 import emu.lunarcore.game.avatar.GameAvatar;
 import emu.lunarcore.game.inventory.GameItem;
@@ -88,6 +89,11 @@ public class CommandArgs {
             }
         } else {
             target = sender;
+        }
+        
+        // If sender is null, it means it is sent from console, hence take cur set UID
+        if (sender == null) {
+            target = LunarCore.getGameServer().getOnlinePlayerByUid(CommandManager.getCurTargetUid());
         }
         
         if (target != null) {
