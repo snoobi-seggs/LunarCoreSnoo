@@ -38,12 +38,12 @@ public class GiveAllCommand implements CommandHandler {
                 for (ItemExcel excel : GameData.getItemExcelMap().values()) {
                     int purpose = excel.getPurposeType();
                     if ((purpose >= 1 && purpose <= 7) || purpose == 10) {
-                        items.add(new GameItem(excel, 1000));
+                        items.add(new GameItem(excel, 10_000));
                     }
                 }
 
                 // Credits
-                items.add(new GameItem(2, 50_000_000));
+                items.add(new GameItem(2, 100_000_000));
 
                 // Add to target's inventory
                 target.getInventory().addItems(items, true);

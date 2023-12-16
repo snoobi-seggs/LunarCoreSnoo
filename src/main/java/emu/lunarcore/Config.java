@@ -22,6 +22,7 @@ public class Config {
     public GameServerConfig gameServer = new GameServerConfig(23301);
     
     public ServerOptions serverOptions = new ServerOptions();
+    public ServerRates serverRates = new ServerRates();
     public LogOptions logOptions = new LogOptions();
     public DownloadData downloadData = new DownloadData();
 
@@ -110,11 +111,14 @@ public class Config {
     public static class ServerOptions {
         public boolean autoCreateAccount = true;
         public int sceneMaxEntites = 500;
-        public boolean spendStamina = true;
+        public int maxCustomRelicLevel = 15; // Maximum level of a relic that the player can create with the /give command
         public boolean unlockAllChallenges = true;
+        public boolean spendStamina = true;
         public int staminaRecoveryRate = 5 * 60;
         public int staminaReserveRecoveryRate = 18 * 60;
         public boolean isInfiniteMP = false;
+        public int startTrailblazerLevel = 1; // Starting trailblazer level for new players
+        public boolean autoUpgradeWorldLevel = true; // Automatically upgrades world level when the player reaches a certain TB level
         public String language = "EN";
         public Set<String> defaultPermissions = Set.of("*");
         
@@ -128,6 +132,15 @@ public class Config {
         public int getStaminaReserveRecoveryRate() {
             return staminaReserveRecoveryRate > 0 ? staminaReserveRecoveryRate : 1;
         }
+    }
+    
+    @Getter
+    public static class ServerRates {
+        public double exp = 1.0;
+        public double credit = 1.0;
+        public double jade = 1.0;
+        public double material = 1.0;
+        public double equip = 1.0;
     }
     
     @Getter

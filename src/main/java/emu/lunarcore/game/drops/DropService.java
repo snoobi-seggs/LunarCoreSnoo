@@ -64,7 +64,9 @@ public class DropService extends BaseGameService {
         
         // Create drops
         for (var entry : dropMap.entries()) {
-            if (entry.getIntValue() <= 0) {
+            // Get amount
+            int amount = entry.getIntValue();
+            if (amount <= 0) {
                 continue;
             }
             
@@ -74,11 +76,11 @@ public class DropService extends BaseGameService {
             
             // Add item
             if (excel.isEquippable()) {
-                for (int i = 0; i < entry.getIntValue(); i++) {
+                for (int i = 0; i < amount; i++) {
                     battle.getDrops().add(new GameItem(excel, 1));
                 }
             } else {
-                battle.getDrops().add(new GameItem(excel, entry.getIntValue()));
+                battle.getDrops().add(new GameItem(excel, amount));
             }
         }
         
