@@ -25,7 +25,7 @@ public class GameServer extends KcpServer {
     private final GameServerConfig serverConfig;
     private final RegionInfo info;
     
-    private final Int2ObjectMap<Player> players;
+    @Getter private final Int2ObjectMap<Player> players;
     private final Timer gameLoopTimer;
     private long lastTickTime;
     
