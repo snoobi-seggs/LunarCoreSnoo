@@ -630,10 +630,55 @@ public class Player implements Tickable {
                 prop.setState(PropState.Locked);
                 // Trigger event
                 this.getScene().invokePropTrigger(PropTriggerType.PUZZLE_FINISH, prop.getGroupId(), prop.getInstId());
-                //
+                // Done
+                return prop;
+            }
+            case PROP_ORDINARY -> {
+                // Log unhandled prop types (EG : Locked Gates)
+                LunarCore.getLogger().warn("[Player:{}] interacted w/ prop [Scene:F{}:P{}, GrpID:{}, InstID:{}, State:{}, PropID:{}, PropTYPE:{}]",
+                    this.uid,
+                    this.getScene().getPlaneId(),
+                    this.getScene().getFloorId(),
+                    prop.getGroupId(),
+                    prop.getInstId(),
+                    prop.getState().toString(),
+                    prop.getExcel().getId(),
+                    prop.getExcel().getPropType().toString());
+                    
+                // Open Prop (EG Gate)
+                prop.setState(PropState.Open);
+                
+                // Trigger Event (TODO: find deciding factor for invoke action)
+                switch (prop.getExcel().getId()) {
+                    case 101001 -> {
+                        // Gate Controller
+                        this.getScene().invokePropTrigger(PropTriggerType.OPEN_DOOR, prop.getGroupId(), prop.getInstId());
+                    }
+                    case 102018 -> {
+                        // Rubik Controller
+                        this.getScene().invokePropTrigger(PropTriggerType.UNHIDE_CHEST_WHEN_COMPLETE_PUZZLE, prop.getGroupId(), prop.getInstId());
+                    }
+                    default -> {
+                        LunarCore.getLogger().warn("Unhandled PropID:{} trigger", prop.getExcel().getId());
+                    }
+                }
+                
+                // Done
                 return prop;
             }
             default -> {
+                // Log unhandled prop types (EG : Locked Gates)
+                LunarCore.getLogger().warn("[Player:{}] interacted w/ prop [Scene:F{}:P{}, GrpID:{}, InstID:{}, State:{}, PropID:{}, PropTYPE:{}] that is unimplemented",
+                    this.uid,
+                    this.getScene().getPlaneId(),
+                    this.getScene().getFloorId(),
+                    prop.getGroupId(),
+                    prop.getInstId(),
+                    prop.getState().toString(),
+                    prop.getExcel().getId(),
+                    prop.getExcel().getPropType().toString());
+                
+                // Return Nothing
                 return null;
             }
         }

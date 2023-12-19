@@ -6,8 +6,10 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 import emu.lunarcore.game.enums.PropState;
+import emu.lunarcore.game.scene.triggers.TriggerOpenDoorWhenInteractProp;
 import emu.lunarcore.game.scene.triggers.TriggerOpenTreasureWhenMonsterDie;
 import emu.lunarcore.game.scene.triggers.TriggerPuzzleCompassWayPointController;
+import emu.lunarcore.game.scene.triggers.TriggerUnhideChestWhenCompletePuzzle;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
@@ -74,6 +76,10 @@ public class FloorInfo {
                         prop.setTrigger(new TriggerOpenTreasureWhenMonsterDie(group.getId()));
                     } else if (json.contains("Maze_Chap02_X201_Event_PuzzleCompass_WayPoint_Controller_01")) {
                         prop.setTrigger(new TriggerPuzzleCompassWayPointController(prop.getSharedValueByKey("PuzzleCompass_Prop"), prop.getSharedValueByKey("PuzzleChest_Prop")));
+                    } else if (json.contains("InitLevelGraph_Prop_Chap01_BaseConsole_01A_Control_SimpleDoor")) {
+                        prop.setTrigger(new TriggerOpenDoorWhenInteractProp(prop.getSharedValueByKey("Maze_Prop_Chap01_BaseControllSimpleDoor"), prop.getID()));
+                    } else if (json.contains("InitLevelGraph_Puzzle_Chap02_RubikCube_Advanced_Config")) {
+                        prop.setTrigger(new TriggerUnhideChestWhenCompletePuzzle(prop.getSharedValueByKey("TargetChest"), prop.getID()));
                     }
                     
                     prop.setInitLevelGraph(null);

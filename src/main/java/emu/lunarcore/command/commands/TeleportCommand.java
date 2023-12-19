@@ -6,7 +6,7 @@ import emu.lunarcore.command.CommandHandler;
 import emu.lunarcore.util.Position;
 import emu.lunarcore.util.Utils;
 
-@Command(label = "teleport", aliases = {"tp"}, permission = "player.teleport", requireTarget = true, desc = "/tp [relative x] [relative y] [relative z]. Teleports the player to the specified pos frm self.")
+@Command(label = "teleport", aliases = {"tp"}, permission = "player.teleport", requireTarget = true, desc = "/tp [+-relative x] [+-relative y] [+-relative z]. Teleports the player to the specified pos frm self. (x1000)")
 public class TeleportCommand implements CommandHandler {
 
     @Override
